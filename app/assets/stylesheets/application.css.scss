@@ -19,8 +19,22 @@
 $primary-color: color("blue", "lighten-1") !default;
 @import "materialize";
 
-.banka_logo {
-  height: auto;
-  max-width: 50px !important;
-  display: inline-block;
+body {
+  background: url('jar.png');
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.nav-wrapper > ul li {
+  width: 100px !important;
+}
+
+.card {
+  opacity: 0.9;
 }
