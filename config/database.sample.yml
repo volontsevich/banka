@@ -1,0 +1,23 @@
+development: &default
+  adapter: postgresql
+  encoding: utf8
+  reconnect: true
+  timeout: 5000
+  pool: 2
+  min_messages: warning
+  host: db
+  database: banka_development
+  username: postgres
+  password: development
+
+test:
+  <<: *default
+  database: banka_test
+
+staging:
+  <<: *default
+  database: banka_staging
+
+production:
+  <<: *default
+  database: banka_production

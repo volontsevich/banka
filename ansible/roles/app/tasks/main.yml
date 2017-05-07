@@ -1,0 +1,10 @@
+- name: Create application directory
+  file: path="/home/{{ deploy_user_name }}/{{ app_name }}" state=directory owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0700
+
+- name: Create shared config directory
+  file: path="/home/{{ deploy_user_name }}/{{ app_name }}/shared/config" state=directory owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0700
+
+- name: Add app logs to logrotate
+  replace: dest=/etc/logrotate.conf
+              regexp="^# system-specific logs may be configured here\s"
+              replace="/home/{{ deploy_user_name }}/{{ app_name }}/current/log/*.log {\n daily\n missingok\n rotate 7\n compress\n delaycompress\n notifempty\n copytruncate\n}\n"

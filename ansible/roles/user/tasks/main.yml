@@ -1,0 +1,37 @@
+# Add the user 'deploy'
+- name: Create deploy user
+  user: name={{ deploy_user_name }} comment="Deploy user" password={{ deploy_user_pass }}
+
+# Add to groups
+- name: Set deploy user groups and shell
+  user: name={{ deploy_user_name }} groups={{ deploy_user_name }},root,sudo shell=/bin/bash
+
+- name: Create .ssh dir
+  file: path=/home/{{ deploy_user_name }}/.ssh state=directory owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0700
+
+# Copy authorized keys
+- name: Copy authorized keys
+  copy: src=authorized_keys dest=/home/{{ deploy_user_name }}/.ssh/authorized_keys owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0600
+
+# Copy .irbrc
+- name: Copy irbrc history
+  copy: src=.irbrc dest=/home/{{ deploy_user_name }}/.irbrc owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0600
+
+# Using key data from a local file on the management machine
+- name: Add authorized key
+  authorized_key: user={{ deploy_user_name }} key="{{ lookup('file', 'id_rsa.pub') }}"
+
+# Add SSH private key to deploy user
+- name: Copy key to remote deploy user
+  copy: src=id_rsa dest=/home/{{ deploy_user_name }}/.ssh/id_rsa owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0600
+
+# Default Bash profile
+- name: Copy bash profile
+  template: src=.bash_profile.j2 dest=/home/{{ deploy_user_name }}/.bash_profile owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0644
+
+- name: Copy bashrc
+  template: src=bashrc.j2 dest=/home/{{ deploy_user_name }}/.bashrc owner={{ deploy_user_name }} group={{ deploy_user_name }} mode=0644
+
+# Copy sudoers file
+- name: Copy sudoers
+  template: src=sudoers.j2 dest=/etc/sudoers owner=root group=root mode=0440

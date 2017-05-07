@@ -1,0 +1,13 @@
+# Ansible don't support Python 3 on ubuntu 16 yet
+# Before running please install Python 2.7: sudo apt-get install -qq python2.7
+---
+- hosts: appservers
+  sudo: yes
+  vars_files:
+    - vars/general.yml
+  roles:
+    - sysinit
+    - user
+    - pgsql
+    - app
+    - nginx

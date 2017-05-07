@@ -1,0 +1,18 @@
+---
+# defaults file for pgsql
+
+psql_user: '{{pgdb_sudo_user}}'
+psql_pass: '{{pgdb_sudo_pass}}'
+
+
+pgdb_users: [
+  {
+    user: '{{psql_user}}',
+    password: '{{psql_pass}}',
+    database: '{{psql_db}}'
+  }
+]
+pgdb_databases: [
+  '{{psql_db}}'
+]
+pgdb_postgresql_locale: en_US.UTF-8

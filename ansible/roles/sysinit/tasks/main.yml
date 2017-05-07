@@ -1,0 +1,18 @@
+- name: Install packages.
+  apt:
+      name: "{{item}}"
+      update_cache: true
+  with_items:
+  - nodejs
+  - ruby-dev
+  - libcurl4-openssl-dev
+  - libxslt1-dev
+  - libpq-dev
+  - libxrender1
+  - libfontconfig
+  - imagemagick
+  - postgresql-client-common
+  - postgresql-client-9.5
+
+- name: Install bundler
+  gem: name=bundle user_install=no
