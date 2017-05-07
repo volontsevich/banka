@@ -15,6 +15,8 @@ gem 'pundit'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'materialize-sass'
+gem 'font-awesome-rails'
 
 
 gem 'sass-rails', '~> 5.0'
